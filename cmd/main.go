@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"bankCLI/pkg"
+	"fmt"
 )
 
 func main() {
@@ -25,38 +25,20 @@ func main() {
 			}
 		case 1:
 			{
-				pkg.CreateClient()
+				pkg.RegisterClient()
 			}
 		case 2:
 			{
-				var clientName string
-				var amount float64
-				fmt.Println("Введите имя клиента:")
-				fmt.Scan(&clientName)
-
-				if _, exists := pkg.Database[clientName]; !exists {
-					fmt.Println("Ошибка: клиент с таким именем не существует!")
-					continue
-				}
-				pkg.AddMoney(clientName, amount)
+				pkg.AddMoney()
 			}
 		case 3:
 			{
-				var clientName string
-				var amount float64
-				fmt.Println("Введите имя клиента:")
-				fmt.Scan(&clientName)
-
-				if _, exists := pkg.Database[clientName]; !exists {
-					fmt.Println("Ошибка: клиент с таким именем не существует!")
-					continue
-				}
-
-				pkg.WithdrawMoney(clientName, amount)
+			pkg.WithdrawMoney()
 			}
-		case 4: {
-			pkg.ShowAllClients()
-		}
+		case 4:
+			{
+				pkg.ShowClientsAccount()
+			}
 		default:
 			{
 				fmt.Println("Ошибка. Вы ввели неверную цифру!")
@@ -73,4 +55,3 @@ func main() {
 3. Показать баланс клиента
 4. Снять деньги клиента
 */
-
