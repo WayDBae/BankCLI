@@ -2,14 +2,14 @@ package pkg
 
 import "fmt"
 
-func CreateClient() {
+func RegisterClient() {
 	fmt.Println("\033[2J")
 	var name string
 	var amount float64 = 0.0
 
 	fmt.Println("Введите ваше имя: ")
 	fmt.Scan(&name)
-	if _, ok := Database[name]; !ok {
+	if _, ok := Database[name]; ok {
 		fmt.Println("Ошибка: клиент с таким именем уже существует!")
 		return
 	}

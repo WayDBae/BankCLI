@@ -14,6 +14,7 @@ func main() {
 		fmt.Println("2. Пополнить баланс клиента")
 		fmt.Println("3. Снять деньги клиента")
 		fmt.Println("4. Показать баланс клиента")
+		fmt.Println("5. Перевести деньги другому клиенту")
 		fmt.Println("0. Выйти")
 		fmt.Scan(&choice)
 
@@ -39,6 +40,8 @@ func main() {
 			{
 				pkg.ShowClientsAccount()
 			}
+		case 5:
+				pkg.TransferMoney()
 		default:
 			{
 				fmt.Println("Ошибка. Вы ввели неверную цифру!")

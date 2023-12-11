@@ -2,34 +2,51 @@ package pkg
 
 import "fmt"
 
-func AddMoney(name string, amount float64) {
+func AddMoney() {
+	var name string
+	var amount float64
+	fmt.Println("Введите имя клиента:")
+	fmt.Scan(&name)
+
+	if _, exists := Database[name]; !exists {
+		fmt.Println("Ошибка: клиент с таким именем не существует!")
+		return
+	}
 	fmt.Println("\033[2J")
-	var money float64
 	fmt.Println("На сколько сомони вы хотите пополнить ваш кошелёк?")
-	fmt.Scan(&money)
-	if money < 0 {
+	fmt.Scan(&amount)
+	if amount < 0 {
 		fmt.Println("Пополнение всегда больше нуля!")
 		return
 	}
-	currentAmount := Database[name]
-	Database[name] = currentAmount + money
-	for ind := range Database {
-		fmt.Printf("Привет, %v! Ваш кошелек успешно пополнен на сумму %v сомони\n", ind, money)
+	balance := Database[name]
+	Database[name] = balance + amount
+	for ind, v := range Database {
+		fmt.Printf("Привет, %v! Ваш кошелек успешно пополнен на сумму %v сомони\n", ind, v)
 	}
 }
 
-func WithdrawMoney(name string, amount float64) {
+func WithdrawMoney() {
 	fmt.Println("\033[2J")
-	var money float64
-	fmt.Println("Какую сумму вы хотите снять с вашего кошелька?")
-	fmt.Scan(&money)
+	var name string
+	var amount float64
 
-	if currentAmount, ok := Database[name]; ok {
-		if money > currentAmount {
+	fmt.Println("Введите имя клиента: ")
+	fmt.Scan(&name)
+	balance, ok := Database[name]
+	if !ok {
+		fmt.Println("Такого пользователя не существует!")
+		return
+	}
+	fmt.Println("Какую сумму вы хотите снять с вашего кошелька?")
+	fmt.Scan(&amount)
+
+	if ok {
+		if amount > balance {
 			fmt.Println("Ошибка: недостаточно средств на кошельке.")
 		} else {
-			Database[name] = currentAmount - money
-			fmt.Printf("Привет, %v! Вы сняли сумму: %v. Остаток на кошельке: %v\n", name, money, Database[name])
+			Database[name] = balance - amount
+			fmt.Printf("Привет, %v! Вы сняли сумму: %v. Остаток на кошельке: %v\n", name, balance, Database[name])
 		}
 	} else {
 		fmt.Println("Ошибка: такого клиента не существует!")
